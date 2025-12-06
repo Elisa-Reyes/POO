@@ -25,6 +25,23 @@
         2.3 cambiar_camiones()
         2.4 borrar_camiones()
 
+4to Diciembre
+    1) Controlador
+        3.1 menu_principal()
+        3.2 menu_acciones()
+        3.3 insertar_autos()
+        3.4 consultar_autos()
+        3.5 cambiar_autos()
+        3.6 borrar_autos()
+
+5to Diciembre
+    1) Controlador
+        3.1 menu_principal()
+        3.2 menu_acciones()
+        3.3 insertar_camionetas()
+        3.4 consultar_camionetas()
+        3.5 cambiar_camionetas()
+        3.6 borrar_camionetas()
 '''
 
 from view import vista

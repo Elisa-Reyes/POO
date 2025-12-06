@@ -1,4 +1,5 @@
 from tkinter import *
+from controller import controlador
 
 class View:
     def __init__(self,ventana):
@@ -23,9 +24,9 @@ class View:
 
         autos=Button(ventana,text="Autos",command= lambda: self.menu_acciones(ventana,"autos"))
         autos.pack(pady=10)
-        camionetas=Button(ventana,text="camionetas",command=lambda: self.menu_acciones(ventana,"camionetas"))
+        camionetas=Button(ventana,text="Camionetas",command=lambda: self.menu_acciones(ventana,"camionetas"))
         camionetas.pack(pady=10)
-        camiones=Button(ventana,text="camiones",command=lambda: self.menu_acciones(ventana,"camiones"))
+        camiones=Button(ventana,text="Camiones",command=lambda: self.menu_acciones(ventana,"camiones"))
         camiones.pack(pady=10)
         salir=Button(ventana,text="Salir",command=ventana.quit,bg="#34edb9")
         salir.pack(pady=10)
@@ -50,14 +51,59 @@ class View:
         self.borrarPantalla(ventana)
         text= Label(ventana, text=f"Insertar Nuevo: {tipo}",font=("Times New Roman", 30),bg="#bea9f7")
         text.pack(pady=10)  
-        self.regresar(ventana)      
+        #marca,color,modelo,velocidad,potencia,plazas
+        marca=Label(ventana,text="marca:")
+        marca.pack(pady=10)
+        marca=Entry(ventana)
+        marca.pack(pady=10)
+        Label(ventana,text="color:").pack()
+        color=Entry(ventana)
+        color.pack(pady=10)
+        Label(ventana,text="modelo:").pack()
+        modelo=Entry(ventana)
+        modelo.pack(pady=10)
+        Label(ventana,text="velocidad:").pack()
+        velocidad=Entry(ventana)
+        velocidad.pack(pady=10)
+        Label(ventana,text="potencia:").pack()
+        potencia=Entry(ventana)
+        potencia.pack(pady=10)
+        Label(ventana,text="plazas:").pack()
+        plazas=Entry(ventana)
+        plazas.pack(pady=10)
+
+        if tipo=="camiones":
+            Label(ventana,text="tracción:").pack()
+            traccion=Entry(ventana)
+            traccion.pack(pady=10)  
+            Label(ventana,text="cerrada o abierto: ").pack() 
+            cerrada=Entry(ventana)
+            cerrada.pack(pady=10) 
+        elif tipo=="camionetas":
+            Label(ventana,text="eje:").pack()
+            eje=Entry(ventana)
+            eje.pack(pady=10)
+            Label(ventana,text="capacidad de carga:").pack()
+            capacidadCarga=Entry(ventana)
+            capacidadCarga.pack(pady=10)
+
+        ok=Button(ventana,text="guardar")
+        ok.pack()
+
+        if tipo=="camiones":
+            ok.config(command=lambda: controlador.Camion.insertar(marca,color,modelo,velocidad,potencia,plazas,traccion,cerrada))
+        elif tipo=="camionetas":
+            ok.config(command= lambda: controlador.Camioneta.insertar(marca,color,modelo,velocidad,potencia,plazas,eje,capacidadCarga))
+        else:
+            ok.config(command=lambda: controlador.Auto.insertar(marca,color,modelo,velocidad,potencia,plazas))
+
+        self.regresar(ventana,tipo)      
 
     def consultar_vehiculos(self,ventana,tipo):
         self.borrarPantalla(ventana)
         text= Label(ventana, text=f"Consultar: {tipo}",font=("Times New Roman", 30),bg="#bea9f7")
         text.pack(pady=10)
         self.regresar(ventana,tipo)
-
 
     def cambiar_vehiculos(self,ventana,tipo):
         self.borrarPantalla(ventana)
@@ -69,6 +115,9 @@ class View:
         id=IntVar()
         ent=Entry(ventana,textvariable=id)
         ent.pack(pady=10)
+        buscar=Button(ventana,text="Buscar",command= lambda:"")
+        buscar.pack()
+
         self.regresar(ventana,tipo)
 
     def borrar_vehiculos(self,ventana,tipo):
@@ -81,4 +130,6 @@ class View:
         id=IntVar()
         ent=Entry(ventana,textvariable=id)
         ent.pack(pady=10)
+        confirmar=Button(ventana,text="Borrar",command= lambda:"")
+        confirmar.pack()
         self.regresar(ventana,tipo)
